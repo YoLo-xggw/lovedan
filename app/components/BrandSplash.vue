@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import './brand-single-card.css'
+const publicAsset = (name: string) => `${String(useRuntimeConfig().app.baseURL || '/').replace(/\/?$/, '/')}${name}`
 const visible = ref(false)
 const startupVisible = ref(false)
 const seconds = ref(10)
@@ -36,7 +37,7 @@ function enter() {
     <div v-if="startupVisible" class="startup-splash" aria-label="Love小家正在启动">
       <div class="startup-orbit startup-orbit-one" />
       <div class="startup-orbit startup-orbit-two" />
-      <div class="startup-mark"><img src="couplespace-mark.svg" alt="Love小家"><span>♡</span></div>
+      <div class="startup-mark"><img :src="publicAsset('couplespace-mark.svg')" alt="Love小家"><span>♡</span></div>
       <strong>Love小家</strong>
       <p>把相爱的每一天，认真收藏。</p>
       <div class="startup-progress"><i /></div>
@@ -47,7 +48,7 @@ function enter() {
       <div class="glow" />
       <main>
         <section class="brand-side">
-          <img src="couplespace-mark.svg" alt="CoupleSpace">
+          <img :src="publicAsset('couplespace-mark.svg')" alt="CoupleSpace">
           <small>Love小家</small>
           <h1>双人空间</h1>
           <p>把相爱的每一天，认真收藏。</p>
