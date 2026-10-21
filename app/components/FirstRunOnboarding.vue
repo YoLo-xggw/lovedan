@@ -40,7 +40,7 @@ function next() {
     <section v-if="phase === 'intro'" class="onboarding-card intro-card">
       <button class="onboarding-close" type="button" aria-label="跳过介绍" title="跳过介绍" @click="emit('complete')"><X :size="18" /></button>
       <div class="onboarding-brand"><span><Heart :size="20" fill="currentColor" /></span><strong>Love小家</strong><small>CoupleSpace</small></div>
-      <div class="intro-visual"><div class="intro-mark"><img src="/couplespace-mark.svg" alt="Love小家"><Heart :size="18" fill="currentColor" /></div><i>♡</i><i>✦</i><i>♡</i></div>
+      <div class="intro-visual"><div class="intro-mark"><img src="couplespace-mark.svg" alt="Love小家"><Heart :size="18" fill="currentColor" /></div><i>♡</i><i>✦</i><i>♡</i></div>
       <div class="intro-copy"><p class="eyebrow">WELCOME HOME</p><h1 id="onboarding-title">{{ currentIntro.title }}</h1><p>{{ currentIntro.body }}</p></div>
       <div class="intro-dots" aria-label="介绍进度"><i v-for="(_, index) in introPages" :key="index" :class="{ active: index === page }" /></div>
       <button class="onboarding-primary" type="button" @click="next"><span>{{ page === introPages.length - 1 ? '开始设置我们的空间' : '继续了解' }}</span><ArrowRight :size="17" /></button>
