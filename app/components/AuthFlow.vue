@@ -3,6 +3,7 @@ import './auth-pastel-theme.css'
 import './auth-single-card.css'
 import { ArrowLeft, Check, Copy, Heart, KeyRound, Link2, LoaderCircle, Mail, ShieldCheck, Sparkles, UserRound } from '@lucide/vue'
 
+const publicAsset = (name: string) => `${String(useRuntimeConfig().app.baseURL || '/').replace(/\/?$/, '/')}${name}`
 const emit = defineEmits<{ complete: [] }>()
 const { configured, demoMode, loading, profile, stage, signIn, signUp, signInWithAccount, signUpWithAccount, signInWithOAuth, recoverAccount, resendConfirmation, createCouple, joinCouple } = useCoupleAuth()
 const mode = ref<'login' | 'register'>('login')
@@ -94,7 +95,7 @@ async function resendEmail() {
   <main id="auth-single-card" class="auth-screen">
     <section class="auth-visual" aria-label="情侣空间介绍">
       <div class="brand"><span><Heart :size="20" fill="currentColor" /></span> Love小家</div>
-      <div class="visual-photo" aria-hidden="true"><i /><img class="visual-memory" src="demo-sunset.jpg" alt=""><img class="visual-emblem" src="couplespace-mark.svg" alt=""></div>
+      <div class="visual-photo" aria-hidden="true"><i /><img class="visual-memory" :src="publicAsset('demo-sunset.jpg')" alt=""><img class="visual-emblem" :src="publicAsset('couplespace-mark.svg')" alt=""></div>
       <div class="visual-copy">
         <p>只属于两个人的珍藏</p>
         <h1>把爱，<br>留在看得见的地方。</h1>
@@ -120,7 +121,7 @@ async function resendEmail() {
         <button class="mode-switch" type="button" @click="stage = 'signed-out'; mode = 'login'">已经确认？返回登录</button>
       </div>
       <div v-else-if="stage === 'signed-out'" class="auth-card">
-        <div class="auth-brand-lockup"><span class="auth-brand-icon"><img src="couplespace-mark.svg" alt=""></span><div><strong>Love小家</strong><small>只属于两个人的日常</small></div><span class="auth-brand-heart"><Heart :size="15" fill="currentColor" /></span></div>
+        <div class="auth-brand-lockup"><span class="auth-brand-icon"><img :src="publicAsset('couplespace-mark.svg')" alt=""></span><div><strong>Love小家</strong><small>只属于两个人的日常</small></div><span class="auth-brand-heart"><Heart :size="15" fill="currentColor" /></span></div>
         <div v-if="generatedRecoveryCode" class="recovery-result"><ShieldCheck :size="30"/><p class="eyebrow">RECOVERY CODE</p><h2>保存你的恢复码</h2><p>忘记密码时，这是找回账号的唯一凭证。它只显示这一次。</p><button class="code-box" type="button" @click="copyRecovery"><strong>{{generatedRecoveryCode}}</strong><Copy :size="18"/></button><label><input v-model="recoverySaved" type="checkbox">我已经安全保存恢复码</label><button class="auth-submit" :disabled="!recoverySaved" @click="generatedRecoveryCode='';mode='login';signInWithAccount(username,password)">进入 Love小家</button></div>
         <template v-else>
         <div class="auth-heading">
