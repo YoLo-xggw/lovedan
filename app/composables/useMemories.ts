@@ -22,14 +22,14 @@ const demoSeed: Memory[] = [
   {
     id: 'demo-1', content: '没有特别安排的一天，却成为了这个夏天最喜欢的傍晚。海风很轻，我们沿着海边走了很久。',
     memoryDate: '2026-07-06', location: '青岛 · 燕儿岛', authorId: 'demo-user', authorName:'我', createdAt: '2026-07-06T19:20:00Z',
-    photos: [{ path: '', url: '/demo-sunset.jpg' }], favoriteCount: 0, isFavorite: false, reactions: {}, comments: [],
+    photos: [{ path: '', url: 'demo-sunset.jpg' }], favoriteCount: 0, isFavorite: false, reactions: {}, comments: [],
   },
   {
     id: 'demo-2', content: '周末临时决定去喝咖啡。交换了最近在听的歌，也写下了下一次旅行想去的地方。',
     memoryDate: '2026-06-28', location: '老城区 · 梧桐咖啡', authorId: 'demo-user', authorName:'我', createdAt: '2026-06-28T15:30:00Z',
     photos: [
-      { path: '', url: '/demo-together.jpg' },
-      { path: '', url: '/demo-coffee.jpg' },
+      { path: '', url: 'demo-together.jpg' },
+      { path: '', url: 'demo-coffee.jpg' },
     ], favoriteCount: 0, isFavorite: false, reactions: {}, comments: [],
   },
 ]

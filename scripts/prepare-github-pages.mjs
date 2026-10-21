@@ -24,6 +24,12 @@ for (const file of await files(root)) {
   if (file.endsWith('manifest.webmanifest')) {
     source = source.replace(/("(?:start_url|scope)"\s*:\s*)"\/"/g, `$1"${base}"`)
   }
+  // Nuxt has already prefixed public assets in generated client chunks with app.baseURL.
+  // Rewriting those strings would make runtime withBase() add the prefix twice.
+  if (file.includes(`${process.platform === 'win32' ? '\\' : '/'}_nuxt${process.platform === 'win32' ? '\\' : '/'}`)) {
+    await writeFile(file, source)
+    continue
+  }
   for (const asset of publicAssets) {
     const token = `/${asset}`
     let cursor = 0
