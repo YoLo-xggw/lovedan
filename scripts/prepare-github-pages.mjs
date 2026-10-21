@@ -21,6 +21,9 @@ async function files(directory) {
 
 for (const file of await files(root)) {
   let source = await readFile(file, 'utf8')
+  if (file.endsWith('manifest.webmanifest')) {
+    source = source.replace(/("(?:start_url|scope)"\s*:\s*)"\/"/g, `$1"${base}"`)
+  }
   for (const asset of publicAssets) {
     const token = `/${asset}`
     let cursor = 0

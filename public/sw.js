@@ -1,10 +1,12 @@
-const VERSION = 'love-home-shell-v1'
+const BASE = new URL('./', self.location).pathname
+const ASSET_BASE = `${BASE}_nuxt/`
+const VERSION = 'love-home-shell-v2'
 const CORE_ASSETS = [
-  '/',
-  '/manifest.webmanifest',
-  '/couplespace-mark.svg',
-  '/desktop-icon.png',
-  '/favicon.ico',
+  BASE,
+  `${BASE}manifest.webmanifest`,
+  `${BASE}couplespace-mark.svg`,
+  `${BASE}desktop-icon.png`,
+  `${BASE}favicon.ico`,
 ]
 
 self.addEventListener('install', event => {
@@ -32,23 +34,23 @@ self.addEventListener('fetch', event => {
 
   // Supabase signed media already has its own bounded Cache Storage layer.
   // Avoid duplicating private photos, videos, audio, or API responses here.
-  if (request.destination === 'image' || request.destination === 'video' || request.destination === 'audio' || url.pathname.startsWith('/api/')) return
+  if (request.destination === 'image' || request.destination === 'video' || request.destination === 'audio' || url.pathname.startsWith(`${BASE}api/`)) return
 
   if (request.mode === 'navigate') {
     event.respondWith(
       fetch(request)
         .then(response => {
           const copy = response.clone()
-          void caches.open(VERSION).then(cache => cache.put('/', copy))
+          void caches.open(VERSION).then(cache => cache.put(BASE, copy))
           return response
         })
-        .catch(() => caches.match('/')
+        .catch(() => caches.match(BASE)
           .then(response => response || new Response('Love小家当前离线，请稍后重试。', { status: 503, headers: { 'Content-Type': 'text/plain; charset=utf-8' } }))),
     )
     return
   }
 
-  if (url.pathname.startsWith('/_nuxt/') || CORE_ASSETS.includes(url.pathname)) {
+  if (url.pathname.startsWith(ASSET_BASE) || CORE_ASSETS.includes(url.pathname)) {
     event.respondWith(
       caches.match(request).then(cached => {
         const update = fetch(request)
