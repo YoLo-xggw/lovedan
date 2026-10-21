@@ -2,6 +2,7 @@
 import { Check, Database, ExternalLink, GitFork, Heart, Info, LockKeyhole, RefreshCw, Scale, ShieldCheck, X } from '@lucide/vue'
 
 const emit = defineEmits<{ close: [] }>()
+const publicAsset = (name: string) => `${String(useRuntimeConfig().app.baseURL || '/').replace(/\/?$/, '/')}${name}`
 const { currentVersion, checking, manifest, check, openUpdate } = useAppUpdate()
 const checkMessage = ref('')
 const githubUrl = 'https://github.com/XTH-LOVE/Love-'
@@ -39,7 +40,7 @@ function openGithub() {
       </header>
 
       <div class="about-brand">
-        <div class="about-mark"><img src="couplespace-mark.svg" alt="Love小家图标"><Heart :size="16" fill="currentColor" /></div>
+        <div class="about-mark"><img :src="publicAsset('couplespace-mark.svg')" alt="Love小家图标"><Heart :size="16" fill="currentColor" /></div>
         <div><strong>Love小家</strong><span>把相爱的每一天，认真收藏。</span></div>
         <span class="about-version">{{ appVersion }}</span>
       </div>
