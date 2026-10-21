@@ -29,7 +29,7 @@ for (const file of await files(root)) {
     let cursor = 0
     let index
     while ((index = source.indexOf(token, cursor)) !== -1) {
-      const alreadyPrefixed = source.slice(Math.max(0, index - base.length), index) === base.slice(0, -1)
+      const alreadyPrefixed = source.slice(Math.max(0, index - (base.length - 1)), index) === base.slice(0, -1)
       if (!alreadyPrefixed) {
         source = `${source.slice(0, index)}${base}${asset}${source.slice(index + token.length)}`
         cursor = index + base.length + asset.length
